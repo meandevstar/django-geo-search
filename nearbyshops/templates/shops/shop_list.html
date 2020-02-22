@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Nearby Shops ({{ shops | length }})</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href='//netdna.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css' rel='stylesheet'/>
+        <link href="//netdna.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+        <script src="//netdna.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+        <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+        <style>
+            .single {
+                padding: 30px 15px;
+                background: #fcfcfc;
+                border: 1px solid #f0f0f0;
+                width: 100%;
+            }
+            .single h3.side-title {
+                margin: 0;
+                margin-bottom: 10px;
+                padding: 0;
+                font-size: 20px;
+                color: #333;
+                text-transform: uppercase;
+            }
+            .single h3.side-title:after {
+                content: '';
+                width: 60px;
+                height: 1px;
+                background: #ff173c;
+                display: block;
+                margin-top: 6px;
+            }
+
+            .single ul {
+                margin-bottom: 0;
+            }
+            .single li a {
+                color: #666;
+                font-size: 14px;
+                text-transform: uppercase;
+                border-bottom: 1px solid #f0f0f0;
+                line-height: 40px;
+                display: block;
+                text-decoration: none;
+            }
+            .single li a:hover {
+                color: #ff173c; }
+                .single li:last-child a {
+                border-bottom: 0;
+            }
+        </style>
+    </head>
+    <body>
+        {% load humanize %}
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-sm-8">
+                    <div class="jumbotron p-3 justify-content-center my-5">
+                        <h1 class="display-4 text-center mb-3">FIND SHOPS NEAR ME</h1>
+                        <form action="" method="GET">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="latInput">Your Latitude</label>
+                                        <input type="text" class="form-control" id="lat" name="lat" value="{{ query.lat }}" placeholder="Latitude" >
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="lonInput">Your Longitude</label>
+                                        <input type="text" class="form-control" id="lon" name="lon" value="{{ query.lon }}" placeholder="Longitude" >
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="countInput">Counts</label>
+                                        <input type="text" class="form-control" id="count" name="count" value="{{ query.count }}" placeholder="Count" >
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row justify-content-center">
+                                <button type="submit" class="btn btn-primary">Search</button>
+                            </div>
+                        </form>
+                    </div>
+                    {% if shops %}
+                    <div class="row justify-content-center">
+                        <div class="single category">
+                            <h3 class="side-title">Nearby Shops ({{ shops | length }})</h3>
+                            <ul class="list-unstyled">
+                                {% for shop in shops %}
+                                <li>
+                                    <a href="" title="">{{ shop.name }} <span class="pull-right">{{ shop.distance.km | floatformat:2 | intcomma }} kms</span></a>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
