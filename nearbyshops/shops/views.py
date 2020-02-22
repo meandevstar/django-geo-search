@@ -5,8 +5,8 @@ from django.contrib.gis.db.models.functions import Distance
 from django.db.models import F, Sum
 from .models import Shop
 
-DEFAULT_LON = 54.967302
-DEFAULT_LAT = 37.313515
+DEFAULT_LON = 13.348943
+DEFAULT_LAT = 52.524323
 DEFAULT_COUNT = 10
 
 class ShopListAPIView(generic.ListView):

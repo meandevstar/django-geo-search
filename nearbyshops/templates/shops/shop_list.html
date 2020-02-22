@@ -39,7 +39,6 @@
             .single li a {
                 color: #666;
                 font-size: 14px;
-                text-transform: uppercase;
                 border-bottom: 1px solid #f0f0f0;
                 line-height: 40px;
                 display: block;
@@ -93,7 +92,15 @@
                             <ul class="list-unstyled">
                                 {% for shop in shops %}
                                 <li>
-                                    <a href="" title="">{{ shop.name }} <span class="pull-right">{{ shop.distance.km | floatformat:2 | intcomma }} kms</span></a>
+                                    <a href="" title="">
+                                        {{ shop.name }}
+
+                                        {% if shop.distance.km >= 1 %}
+                                            <span class="pull-right">{{ shop.distance.km | floatformat:2 | intcomma }} km</span>
+                                        {% else %}
+                                            <span class="pull-right">{{ shop.distance.m | floatformat:2 | intcomma }} m</span> 
+                                        {% endif %}
+                                    </a>
                                 </li>
                                 {% endfor %}
                             </ul>
