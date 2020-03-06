@@ -7,10 +7,13 @@ class ShopSerializer(serializers.ModelSerializer):
     location = serializers.SerializerMethodField()
 
     def get_distance(self, obj):
-        return obj.distance.m
+        return {
+          'm': obj.distance.m,
+          'km': obj.distance.km
+        }
 
     def get_location(self, obj):
-        return [obj.location.x, obj.location.y]
+        return [obj.location.y, obj.location.x]
 
     class Meta:
         model = Shop

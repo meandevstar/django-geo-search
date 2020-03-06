@@ -35,7 +35,6 @@ class ShopListAPIView(RetrieveAPIView):
             if order == "desc":
                 shops = shops.reverse()
 
-
         paginator = Paginator(shops, limit)
         try:
             data = paginator.page(page_no)
